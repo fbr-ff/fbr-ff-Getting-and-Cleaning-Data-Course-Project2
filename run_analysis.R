@@ -48,7 +48,7 @@ df.tidy.final<-cbind(df2[,meanvals],df2[,stdvals],
                   activity_index=df2$activity_index,
                   activity_description=df2$activity_description,
                   subject=df2$subject)%>%
-  gather("measurement.type","value",1:66)
+  gather("measurement_type","value",1:66)
 
 head(df.tidy.final)
 
