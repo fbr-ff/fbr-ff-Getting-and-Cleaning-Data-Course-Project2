@@ -1,6 +1,7 @@
 
 #Setting directory
-setwd("DataScience/3GD_Week4")
+#setwd("DataScience/3GD_Week4")
+setwd("3GD_Week4")
 #loading required packages
 require(tidyverse)
 
@@ -21,7 +22,6 @@ test.list<-lapply(test.loc,function(x) read_table(x,col_names = FALSE))
 row.counts<-lapply(train.list,nrow) 
 all(sapply(row.counts, FUN = identical, row.counts[[1]]))
 
-
 # 1. Task 1. Merges the training and the test sets to create one data set.
 
 #merging test and training set
@@ -40,26 +40,25 @@ colnames(df2)<-c(sub("^[0-9]{1,3} ",supp.list[[3]]$X1,replacement = ""),
                  "activity_index","activity_description","subject")
 
 # 4. Task 2. Extracts only the measurements on the mean and standard deviation for each measurement. 
-
 meanvals<-grep("mean\\(",colnames(df2),value = FALSE)
 stdvals<-grep("std",colnames(df2),value = FALSE)
 
 df.tidy.final<-cbind(df2[,meanvals],df2[,stdvals],
                   activity_index=df2$activity_index,
                   activity_description=df2$activity_description,
-                  subject=df2$subject)%>%
-  gather("measurement_type","value",1:66)
+                  subject=df2$subject)
+  #gather("measurement_type","value",1:66)
 
 head(df.tidy.final)
 
 #Task 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 df.tidy2<-df.tidy.final%>%
   group_by(activity_description,subject)%>%
-  summarize(act.mean=mean(value))
+  summarize_all(mean)
 
 head(df.tidy2)
 
 #Export
 
-write.csv(df.tidy.final,"tidy_dataset_1.csv")
-write.csv(df.tidy2,"tidy_dataset_2_means.csv")
+write.table(df.tidy.final,"tidy_dataset_1.txt",row.name=FALSE)
+write.table(df.tidy2,"tidy_dataset_2_means.txt",row.name=FALSE)

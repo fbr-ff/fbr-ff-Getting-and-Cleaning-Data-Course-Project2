@@ -12,8 +12,7 @@ The final tidy dataset *tidy_dataset_1.csv* contains the following columns:
 	- STANDING	
 	- LAYING
 * subject: anonymized subject from 1 to 30.
-* measurement_type: type of conducted measurement, see README.txt of original dataset.
-* value: the respective measurement value
+* measurement_type columns: type of conducted measurement, see README.txt of original dataset.
 
 The secondary dataset *tidy_dataset_2_means.csv* contains
 
